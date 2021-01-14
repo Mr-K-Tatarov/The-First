@@ -5,7 +5,7 @@ from transport.sanic.configure_sanic import configure_app
 
 def main():
     config = ApplicationConfig()
-    context = Context
+    context = Context()
     app = configure_app(config, context)
 
     app.run(
