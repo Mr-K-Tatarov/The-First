@@ -1,14 +1,6 @@
-from marshmallow import Schema, EXCLUDE, ValidationError
-from sanic.exceptions import SanicException
+from marshmallow import Schema, ValidationError, EXCLUDE
 
-
-
-class ApiValidationException(SanicException):
-    status = 400
-
-
-class ApiResponseValidationException(SanicException):
-    status = 500
+from api.exceptions import ApiValidationException, ApiResponseValidationException
 
 
 class RequestDto:
@@ -33,19 +25,26 @@ class RequestDto:
 class ResponseDto:
     __schema__: Schema
 
-    def __init__(self, obj: object):
-        properties = {
+    def __init__(self, obj, many: bool = False):
+        if many:
+            properties = [self.parse_obj(o) for o in obj]
+        else:
+            properties = self.parse_obj(obj)
+
+        try:
+            self._data = self.__schema__(unknown=EXCLUDE, many=many).load(properties)
+        except ValidationError as error:
+            raise ApiResponseValidationException(error.messages)
+
+    @staticmethod
+    def parse_obj(obj: object) -> dict:
+        return {
             prop: value
             for prop in dir(obj)
             if not prop.startswith('_')
                and not prop.endswith('_')
                and not callable(value := getattr(obj, prop))
         }
-
-        try:
-            self._data = self.__schema__(unknown=EXCLUDE).load(properties)
-        except ValidationError as error:
-            raise ApiResponseValidationException(error.messages)
 
     def dump(self) -> dict:
         return self._data
