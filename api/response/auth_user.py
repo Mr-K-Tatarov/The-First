@@ -27,7 +27,7 @@ class ResponseAuthUserDtoSchema:
         return valid_data
 
 
-class ResponseAuthUserDto(ResponseDto):
+class ResponseAuthUserDto(ResponseDto, ResponseAuthUserDtoSchema):
     __schema__ = ResponseAuthUserDtoSchema
 
 

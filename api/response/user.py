@@ -12,16 +12,14 @@ class ResponseUserDtoSchema(Schema):
     update_at = fields.DateTime(required=True)
     first_name = fields.Str(required=True)
     last_name = fields.Str(required=True)
-    position = fields.Str(required=True, allow_none=True)
-    department = fields.Str(required=True, allow_none=True)
 
     @pre_load
     @post_load
     def deserialize_datetime(self, data: dict, **kwargs) -> dict:
-        if 'created_at' in data:
-            data['created_at'] = self.datetime_to_iso(data['created_at'])
-        if 'update_at' in data:
-            data['update_at'] = self.datetime_to_iso(data['update_at'])
+        if "created_at" in data:
+            data["created_at"] = self.datetime_to_iso(data["created_at"])
+        if "update_at" in data:
+            data["update_at"] = self.datetime_to_iso(data["update_at"])
 
         return data
 
@@ -34,4 +32,3 @@ class ResponseUserDtoSchema(Schema):
 
 class ResponseUserDto(ResponseDto, ResponseUserDtoSchema):
     __schema__ = ResponseUserDtoSchema
-

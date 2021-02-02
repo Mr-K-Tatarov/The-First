@@ -1,10 +1,12 @@
+from typing import Type
+
 from marshmallow import Schema, ValidationError, EXCLUDE
 
 from api.exceptions import ApiValidationException, ApiResponseValidationException
 
 
 class RequestDto:
-    __schema__: Schema
+    __schema__: Type[Schema]
 
     def __init__(self, data: dict):
         try:
@@ -23,7 +25,7 @@ class RequestDto:
 
 
 class ResponseDto:
-    __schema__: Schema
+    __schema__: Type[Schema]
 
     def __init__(self, obj, many: bool = False):
         if many:
@@ -38,6 +40,7 @@ class ResponseDto:
 
     @staticmethod
     def parse_obj(obj: object) -> dict:
+        value = None
         return {
             prop: value
             for prop in dir(obj)

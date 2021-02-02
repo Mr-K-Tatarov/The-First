@@ -10,8 +10,6 @@ def create_user(session: DBSession,*, user: RequestCreateUserDto, hashed_passwor
         password=hashed_password,
         first_name=user.first_name,
         last_name=user.last_name,
-        position=user.position,
-        department=user.department,
     )
 
     if get_user_by_login(session, login=new_user.login) is not None:

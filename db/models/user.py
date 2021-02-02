@@ -12,5 +12,3 @@ class DBUser(BaseModel):
     first_name = Column(VARCHAR(50))
     last_name = Column(VARCHAR(50))
     is_delete = Column(BOOLEAN(), nullable=False, default=False)
-    position = Column(VARCHAR(50))
-    department = Column(VARCHAR(50))
