@@ -3,9 +3,9 @@ from sqlalchemy import Column, VARCHAR, VARBINARY, BOOLEAN
 from db.models.base import BaseModel
 
 
-class DBEmployee(BaseModel):
+class DBUser(BaseModel):
 
-    __tablename__ = 'employee'
+    __tablename__ = 'user'
 
     login = Column(VARCHAR(20), unique=True, nullable=False)
     password = Column(VARBINARY(), nullable=False)

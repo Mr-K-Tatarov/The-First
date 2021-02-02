@@ -7,7 +7,7 @@ class ValidationError(SanicException):
     status_code = 400
 
 
-class ResponseAuthEmployeeDtoSchema:
+class ResponseAuthUserDtoSchema:
 
     def __init__(self, *args, **kwargs):
         self.fields = {'Authorization': ''}
@@ -27,8 +27,8 @@ class ResponseAuthEmployeeDtoSchema:
         return valid_data
 
 
-class ResponseAuthEmployeeDto(ResponseDto):
-    __schema__ = ResponseAuthEmployeeDtoSchema
+class ResponseAuthUserDto(ResponseDto):
+    __schema__ = ResponseAuthUserDtoSchema
 
 
 class AuthResponseObject:

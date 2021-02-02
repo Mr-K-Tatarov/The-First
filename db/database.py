@@ -5,7 +5,7 @@ from sqlalchemy.exc import IntegrityError, DataError
 from sqlalchemy.orm import sessionmaker, Session
 
 from db.exceptions import DBIntegrityException, DBDataException
-from db.models import BaseModel, DBEmployee
+from db.models import BaseModel, DBUser
 
 
 class DBSession:
@@ -27,15 +27,6 @@ class DBSession:
             raise DBIntegrityException(e)
         except DataError as e:
             raise DBDataException(e)
-
-    def get_employee_by_login(self, login: str) -> DBEmployee:
-        return self._session.query(DBEmployee).filter(DBEmployee.login == login).first()
-
-    def get_employee_by_id(self, eid: int) -> DBEmployee:
-        return self._session.query(DBEmployee).filter(DBEmployee.id == eid).first()
-
-    def get_employee_all(self) -> List[DBEmployee]:
-        return self._session.query(DBEmployee).filter(DBEmployee.is_delete == 0).all()
 
     def commit_session(self, need_close: bool = False):
         try:

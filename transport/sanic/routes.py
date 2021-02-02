@@ -11,16 +11,16 @@ def get_routes(config: ApplicationConfig, context: Context) -> Tuple:
         endpoints.HealthEndpoint(
             config=config, context=context, uri='/', methods=('GET', 'POST'),
         ),
-        endpoints.CreateEmployeeEndpoint(
-            config, context, uri='/employee', methods=['POST'],
+        endpoints.CreateUserEndpoint(
+            config, context, uri='/user', methods=['POST'],
         ),
-        endpoints.AuthEmployeeEndpoint(
-            config, context, uri='/employee/auth', methods=['POST'],
+        endpoints.UserEndpoint(
+            config, context, uri='/user/<user_id:int>', methods=['GET', 'PATCH', 'DELETE'], auth_required=True,
         ),
-        endpoints.EmployeeEndpoint(
-            config, context, uri='/employee/<eid:int>', methods=['PATCH', 'DELETE'], auth_required=True,
+        endpoints.AuthEndpoint(
+            config, context, uri='/auth', methods=['POST'],
         ),
-        endpoints.AllEmployeeEndpoint(
-            config, context, uri='/employee/all', methods=['GET'], auth_required=True,
-        )
+
+
+
     )
