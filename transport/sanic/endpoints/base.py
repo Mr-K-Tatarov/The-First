@@ -1,13 +1,14 @@
+from sanic.exceptions import SanicException
 from sanic.request import Request
 from sanic.response import BaseHTTPResponse
-from sanic.exceptions import SanicException
 
 from transport.sanic.base import SanicEndpoint
 
 
 class BaseEndpoint(SanicEndpoint):
-
-    async def _method(self, request: Request, body: dict, *args, **kwargs) -> BaseHTTPResponse:
+    async def _method(
+            self, request: Request, body: dict, *args, **kwargs
+    ) -> BaseHTTPResponse:
 
         database = self.context.database
         session = database.make_session()

@@ -49,7 +49,7 @@ class DBSession:
 class DataBase:
     connection: Engine
     session_factory: sessionmaker
-    _test_query = 'SELECT 1'
+    _test_query = "SELECT 1"
 
     def __init__(self, connection: Engine):
         self.connection = connection

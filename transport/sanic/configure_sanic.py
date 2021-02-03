@@ -20,5 +20,4 @@ def configure_app(config: ApplicationConfig, context: Context):
             strict_slashes=True,
         )
 
-
     return app

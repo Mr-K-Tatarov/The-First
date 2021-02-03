@@ -3,7 +3,6 @@ class ContextLockedException(Exception):
 
 
 class Context:
-
     def __init__(self):
         self.is_locked = False
 
@@ -17,4 +16,3 @@ class Context:
         if self.is_locked:
             raise ContextLockedException
         setattr(self, key, value)
-

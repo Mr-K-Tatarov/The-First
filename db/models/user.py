@@ -5,7 +5,7 @@ from db.models.base import BaseModel
 
 class DBUser(BaseModel):
 
-    __tablename__ = 'user'
+    __tablename__ = "user"
 
     login = Column(VARCHAR(20), unique=True, nullable=False)
     password = Column(VARBINARY(), nullable=False)

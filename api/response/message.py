@@ -16,10 +16,10 @@ class ResponseMessageDtoSchema(Schema):
     @pre_load
     @post_load
     def deserialize_datetime(self, data: dict, **kwargs) -> dict:
-        if 'created_at' in data:
-            data['created_at'] = self.datetime_to_iso(data['created_at'])
-        if 'update_at' in data:
-            data['update_at'] = self.datetime_to_iso(data['update_at'])
+        if "created_at" in data:
+            data["created_at"] = self.datetime_to_iso(data["created_at"])
+        if "update_at" in data:
+            data["update_at"] = self.datetime_to_iso(data["update_at"])
 
         return data
 
@@ -33,10 +33,3 @@ class ResponseMessageDtoSchema(Schema):
 class ResponseMessageDto(ResponseDto, ResponseMessageDtoSchema):
     __schema__ = ResponseMessageDtoSchema
 
-
-class ResponseListMessageDtoSchema(Schema):
-    messages = fields.Nested(ResponseMessageDtoSchema, many=True, missing=list)
-
-
-class ResponseListMessageDto(ResponseDto, ResponseListMessageDtoSchema):
-    __schema__ = ResponseListMessageDtoSchema

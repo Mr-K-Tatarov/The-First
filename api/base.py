@@ -44,8 +44,8 @@ class ResponseDto:
         return {
             prop: value
             for prop in dir(obj)
-            if not prop.startswith('_')
-               and not prop.endswith('_')
+            if not prop.startswith("_")
+               and not prop.endswith("_")
                and not callable(value := getattr(obj, prop))
         }
 

@@ -27,14 +27,18 @@ def get_message_by_id(session: DBSession, *, message_id: int) -> DBMessage:
     return db_message
 
 
-def get_messages_by_recipient_id(session: DBSession, *, recipient_id: int) -> List[DBMessage]:
-    db_messages = session.query(DBMessage).filter(DBMessage.recipient_id == recipient_id) or []
+def get_messages_by_recipient_id(
+        session: DBSession, *, recipient_id: int
+) -> List[DBMessage]:
+    db_messages = (
+            session.query(DBMessage).filter(DBMessage.recipient_id == recipient_id).all() or []
+    )
 
     return db_messages
 
 
 def update_message(
-        session: DBSession, message: RequestUpdateMessageDto, message_id: int
+        session: DBSession, *, message: RequestUpdateMessageDto, message_id: int
 ) -> DBMessage:
     db_message = get_message_by_id(session, message_id=message_id)
 

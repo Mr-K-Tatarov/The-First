@@ -1,6 +1,9 @@
 import bcrypt
 
-from helpers.password.exception import GeneratePasswordHashException, CheckPasswordHashException
+from helpers.password.exception import (
+    GeneratePasswordHashException,
+    CheckPasswordHashException,
+)
 
 
 def generate_hash(pwd: str) -> bytes:

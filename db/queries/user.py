@@ -1,10 +1,12 @@
 from api.request import RequestCreateUserDto, RequestPatchUserDto
 from db.database import DBSession
-from db.exceptions import DBUserExists, DBUserNotExists
+from db.exceptions import DBUserNotExists, DBUserExists
 from db.models import DBUser
 
 
-def create_user(session: DBSession,*, user: RequestCreateUserDto, hashed_password: bytes) -> DBUser:
+def create_user(
+        session: DBSession, *, user: RequestCreateUserDto, hashed_password: bytes
+) -> DBUser:
     new_user = DBUser(
         login=user.login,
         password=hashed_password,
@@ -12,8 +14,11 @@ def create_user(session: DBSession,*, user: RequestCreateUserDto, hashed_passwor
         last_name=user.last_name,
     )
 
-    if get_user_by_login(session, login=new_user.login) is not None:
-        raise DBUserExists
+    try:
+        if get_user_by_login(session, login=new_user.login):
+            raise DBUserExists(new_user.login)
+    except DBUserNotExists:
+        pass
 
     session.add_model(new_user)
 

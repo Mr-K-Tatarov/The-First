@@ -18,3 +18,12 @@ class RequestUpdateMessageDtoSchema(Schema):
 
 class RequestUpdateMessageDto(RequestDto, RequestUpdateMessageDtoSchema):
     __schema__ = RequestUpdateMessageDtoSchema
+    fields: list
+
+    def __init__(self, *args, **kwargs):
+        self.fields = []
+        super().__init__(*args, **kwargs)
+
+    def set(self, key, value):
+        self.fields.append(key)
+        super().set(key, value)

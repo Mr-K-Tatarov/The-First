@@ -1,11 +1,10 @@
-from logging.config import fileConfig
 import os
 import sys
-
-from sqlalchemy import engine_from_config
-from sqlalchemy import pool
+from logging.config import fileConfig
 
 from alembic import context
+from sqlalchemy import engine_from_config
+from sqlalchemy import pool
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 sys.path.append(BASE_DIR)
@@ -38,7 +37,7 @@ def get_sqlalchemy_url() -> str:
     return app_config.database.url
 
 
-config.set_main_option('sqlalchemy.url', get_sqlalchemy_url())
+config.set_main_option("sqlalchemy.url", get_sqlalchemy_url())
 
 
 def run_migrations_offline():
@@ -79,9 +78,7 @@ def run_migrations_online():
     )
 
     with connectable.connect() as connection:
-        context.configure(
-            connection=connection, target_metadata=target_metadata
-        )
+        context.configure(connection=connection, target_metadata=target_metadata)
 
         with context.begin_transaction():
             context.run_migrations()

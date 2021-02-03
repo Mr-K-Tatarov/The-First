@@ -8,9 +8,8 @@ class ValidationError(SanicException):
 
 
 class ResponseAuthUserDtoSchema:
-
     def __init__(self, *args, **kwargs):
-        self.fields = {'Authorization': ''}
+        self.fields = {"Authorization": ""}
 
     def load(self, data: dict) -> dict:
 
@@ -20,7 +19,7 @@ class ResponseAuthUserDtoSchema:
             if key not in self.fields:
                 continue
             if not isinstance(value, self.fields[key].__class__):
-                raise ValidationError(f'{key} should be str')
+                raise ValidationError(f"{key} should be str")
 
             valid_data[key] = value
 

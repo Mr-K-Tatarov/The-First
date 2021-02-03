@@ -4,7 +4,7 @@ from db.models.base import BaseModel
 
 
 class DBMessage(BaseModel):
-    __tablename__ = 'message'
+    __tablename__ = "message"
 
     message = Column(VARCHAR(255), nullable=False)
     sender_id = Column(Integer, nullable=False)
