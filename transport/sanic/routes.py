@@ -2,7 +2,6 @@ from typing import Tuple
 
 from configs.config import ApplicationConfig
 from context import Context
-from transport.sanic.base import SanicEndpoint
 from transport.sanic import endpoints
 
 
@@ -19,6 +18,9 @@ def get_routes(config: ApplicationConfig, context: Context) -> Tuple:
         ),
         endpoints.AuthEndpoint(
             config, context, uri='/auth', methods=['POST'],
+        ),
+        endpoints.CreateMessageEndpoint(
+            config, context, uri='/msg', methods=['POST'],
         ),
 
 
