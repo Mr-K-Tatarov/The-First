@@ -1,11 +1,9 @@
-from typing import List
-
 from sqlalchemy.engine import Engine
 from sqlalchemy.exc import IntegrityError, DataError
-from sqlalchemy.orm import sessionmaker, Session
+from sqlalchemy.orm import sessionmaker, Session, Query
 
 from db.exceptions import DBIntegrityException, DBDataException
-from db.models import BaseModel, DBUser
+from db.models import BaseModel
 
 
 class DBSession:
@@ -14,15 +12,23 @@ class DBSession:
     def __init__(self, session: Session):
         self._session = session
 
-    def query(self, *args, **kwargs):
+    def query(self, *args, **kwargs) -> Query:
         return self._session.query(*args, **kwargs)
 
     def close_session(self):
         self._session.close()
 
-    def add_model(self, model:BaseModel):
+    def add_model(self, model: BaseModel):
         try:
             self._session.add(model)
+        except IntegrityError as e:
+            raise DBIntegrityException(e)
+        except DataError as e:
+            raise DBDataException(e)
+
+    def delete_model(self, model: BaseModel):
+        try:
+            self._session.delete(model)
         except IntegrityError as e:
             raise DBIntegrityException(e)
         except DataError as e:

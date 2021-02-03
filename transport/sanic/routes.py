@@ -22,6 +22,9 @@ def get_routes(config: ApplicationConfig, context: Context) -> Tuple:
         endpoints.CreateMessageEndpoint(
             config, context, uri='/msg', methods=['POST'],
         ),
+        endpoints.CreateMessageEndpoint(
+            config, context, uri='/msg', methods=['GET'],
+        ),
 
 
 
